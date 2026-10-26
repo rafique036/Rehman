@@ -1,10 +1,10 @@
-
 name: CI CD - Deploy to Ubuntu WSL
 
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,7 +16,6 @@ jobs:
         run: |
           echo "Source code checked out successfully"
           test -f compose.yaml || test -f docker-compose.yml
-      
 
       - name: Deploy Docker Compose application
         uses: appleboy/ssh-action@v1
@@ -24,17 +23,17 @@ jobs:
           host: ${{ secrets.WSL_HOST }}
           username: ${{ secrets.WSL_USERNAME }}
           password: ${{ secrets.WSL_PASSWORD }}
+          # fingerprint: ${{ secrets.WSL_HOST_FINGERPRINT }}   # optional, for strict verification
           script: |
-            rehman
+            set -e
             cd ~/app
-
+            git pull origin main
             docker --version
             docker compose version
-
             docker compose config
-            docker compose up -d --build
+            docker compose pull
+            docker compose up -d --build --remove-orphans
             docker compose ps
 
       - name: Deployment completed
         run: echo "Deployment commands completed successfully"
-
