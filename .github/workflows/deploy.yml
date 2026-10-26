@@ -16,12 +16,7 @@ jobs:
         run: |
           echo "Source code checked out successfully"
           test -f compose.yaml || test -f docker-compose.yml
-      - name: Copy files to Ubuntu WSL
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.WSL_HOST }}
-          username: ${{ secrets.WSL_USERNAME }}
-          password: ${{ secrets.WSL_PASSWORD }}
+      
 
       - name: Deploy Docker Compose application
         uses: appleboy/ssh-action@v1
