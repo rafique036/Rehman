@@ -16,8 +16,6 @@ jobs:
         run: |
           echo "Source code checked out successfully"
           test -f compose.yaml || test -f docker-compose.yml
-<<<<<<< HEAD
-=======
       - name: Copy files to Ubuntu WSL
         uses: appleboy/scp-action@v1
         with:
@@ -27,7 +25,6 @@ jobs:
           source: "."
           target: "/home/${{ secrets.WSL_USERNAME }}/app"
           rm: false
->>>>>>> 535170c (Correct the Error 2)
 
       - name: Deploy Docker Compose application
         uses: appleboy/ssh-action@v1
