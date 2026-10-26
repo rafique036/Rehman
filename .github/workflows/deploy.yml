@@ -22,9 +22,6 @@ jobs:
           host: ${{ secrets.WSL_HOST }}
           username: ${{ secrets.WSL_USERNAME }}
           password: ${{ secrets.WSL_PASSWORD }}
-          source: "."
-          target: "/home/${{ secrets.WSL_USERNAME }}/app"
-          rm: false
 
       - name: Deploy Docker Compose application
         uses: appleboy/ssh-action@v1
